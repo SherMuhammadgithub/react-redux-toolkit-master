@@ -2,10 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import { useLoginMutation } from "../redux/api/userApiSlice";
 import { setCredentials } from "../redux/features/auth/authSlice";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -38,8 +38,8 @@ export default function Login() {
     try {
       const res = await login({ email, password }).unwrap();
       dispattch(setCredentials({ ...res }));
-    } catch (error) {
-      toast.error(error?.data?.message || "An error occurred");
+    } catch (err) {
+      toast.error(err?.data?.message || err?.message);
     }
   };
   return (

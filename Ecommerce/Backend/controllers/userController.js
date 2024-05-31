@@ -64,8 +64,8 @@ const logoutCurrentUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     expires: new Date(0),
   });
-
-  res.status(200).send("User logged out");
+  // send response in json format
+  res.json({ message: "Logged out" });
 });
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
