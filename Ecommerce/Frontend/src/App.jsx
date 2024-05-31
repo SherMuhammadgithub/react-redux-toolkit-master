@@ -1,7 +1,16 @@
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import Navigation from "./pages/Navigation";
 function App() {
   return (
     <>
-      <h1 className="text-red-400 text-7xl text-center my-10">Sher Store</h1>
+      <ToastContainer />
+      <Navigation />
+      <main className="py-3">
+        <Outlet />
+      </main>
+      
     </>
   );
 }
