@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../redux/features/auth/authSlice";
-import { useLogoutMutation } from "../redux/api/userApiSlice";
+import { logout } from "../../redux/features/auth/authSlice";
+import { useLogoutMutation } from "../../redux/api/userApiSlice";
 import "./Navigation.css";
 
 export default function Navigation() {
