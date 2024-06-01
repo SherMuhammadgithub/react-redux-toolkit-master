@@ -99,13 +99,15 @@ export default function UserList() {
                     ) : (
                       <div className="flex items-center">
                         {user.username}{" "}
-                        <button
-                          onClick={() =>
-                            toggleEdit(user._id, user.username, user.email)
-                          }
-                        >
-                          <FaEdit className="ml-[1rem]" />
-                        </button>
+                        {!user.isAdmin && (
+                          <button
+                            onClick={() =>
+                              toggleEdit(user._id, user.username, user.email)
+                            }
+                          >
+                            <FaEdit className="ml-[1rem]" />
+                          </button>
+                        )}
                       </div>
                     )}
                   </td>
@@ -128,13 +130,15 @@ export default function UserList() {
                     ) : (
                       <div className="flex items-center">
                         <a href={`mailto:${user.email}`}>{user.email}</a>{" "}
-                        <button
-                          onClick={() =>
-                            toggleEdit(user._id, user.name, user.email)
-                          }
-                        >
-                          <FaEdit className="ml-[1rem]" />
-                        </button>
+                        {!user.isAdmin && (
+                          <button
+                            onClick={() =>
+                              toggleEdit(user._id, user.username, user.email)
+                            }
+                          >
+                            <FaEdit className="ml-[1rem]" />
+                          </button>
+                        )}
                       </div>
                     )}
                   </td>
