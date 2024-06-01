@@ -10,6 +10,7 @@ import {
   useUpdateUserMutation,
 } from "../../redux/api/userApiSlice";
 import { toast } from "react-toastify";
+import AdminMenu from "./AdminMenu";
 export default function UserList() {
   const { userInfo } = useSelector((state) => state.auth);
   const { data: users, refetch, error, isLoading } = useGetUsersQuery();
@@ -67,7 +68,7 @@ export default function UserList() {
         </Message>
       ) : (
         <div className="flex flex-col md:flex-row">
-          {/* <AdminMenu /> */}
+          <AdminMenu />
           <table className="w-full md:w-4/5 mx-auto">
             <thead>
               <tr>
