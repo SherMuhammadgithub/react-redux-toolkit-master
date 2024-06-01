@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FaTrash, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
+import { useSelector } from "react-redux";
 import {
   useDeleteUserMutation,
   useGetUsersQuery,
@@ -10,6 +11,7 @@ import {
 } from "../../redux/api/userApiSlice";
 import { toast } from "react-toastify";
 export default function UserList() {
+  const { userInfo } = useSelector((state) => state.auth);
   const { data: users, refetch, error, isLoading } = useGetUsersQuery();
   const [deleteUser] = useDeleteUserMutation();
   const [updateUser] = useUpdateUserMutation();
@@ -99,7 +101,7 @@ export default function UserList() {
                     ) : (
                       <div className="flex items-center">
                         {user.username}{" "}
-                        {!user.isAdmin && (
+                        {!user.isAdmin || userInfo._id == user._id ? (
                           <button
                             onClick={() =>
                               toggleEdit(user._id, user.username, user.email)
@@ -107,7 +109,7 @@ export default function UserList() {
                           >
                             <FaEdit className="ml-[1rem]" />
                           </button>
-                        )}
+                        ) : null}
                       </div>
                     )}
                   </td>
@@ -130,7 +132,7 @@ export default function UserList() {
                     ) : (
                       <div className="flex items-center">
                         <a href={`mailto:${user.email}`}>{user.email}</a>{" "}
-                        {!user.isAdmin && (
+                        {!user.isAdmin || userInfo._id == user._id ? (
                           <button
                             onClick={() =>
                               toggleEdit(user._id, user.username, user.email)
@@ -138,7 +140,7 @@ export default function UserList() {
                           >
                             <FaEdit className="ml-[1rem]" />
                           </button>
-                        )}
+                        ) : null}
                       </div>
                     )}
                   </td>
@@ -152,6 +154,8 @@ export default function UserList() {
                   <td className="px-4 py-2">
                     {!user.isAdmin && (
                       <div className="flex">
+                        {/* // only allow to delete user if the user is not an admin
+                        or the user is not deleting himself */}
                         <button
                           onClick={() => deleteHandler(user._id)}
                           className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
