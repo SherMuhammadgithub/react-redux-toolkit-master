@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 export default function AdminRoute() {
   const { userInfo } = useSelector((state) => state.auth);
 

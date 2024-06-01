@@ -10,6 +10,8 @@ import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import Profile from "./pages/user/Profile.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import AdminRoute from "./pages/admin/AdminRoute.jsx";
+import UserList from "./pages/admin/UserList.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +20,9 @@ const router = createBrowserRouter(
       <Route path="/register" element={<Register />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
+      </Route>
+      <Route path="/admin" element={<AdminRoute />}>
+        <Route path="userlist" element={<UserList />} />
       </Route>
     </Route>
   )
