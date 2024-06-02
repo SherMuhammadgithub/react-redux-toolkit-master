@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { FaTrash, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setCredentials } from "../../redux/features/auth/authSlice";
 import {
   useDeleteUserMutation,
   useGetUsersQuery,
@@ -42,14 +43,15 @@ export default function UserList() {
     setEditableUserName(name);
     setEditableUserEmail(email);
   };
-
+  const dispatch = useDispatch();
   const updateHandler = async (userId) => {
     try {
-      await updateUser({
+      const result = await updateUser({
         userId,
         username: editableUserName,
         email: editableUserEmail,
       }).unwrap();
+      dispatch(setCredentials({ ...result }));
       toast.success("User updated successfully");
       setEditableUserId("");
       refetch();
@@ -118,7 +120,7 @@ export default function UserList() {
                     {editableUserId === user._id ? (
                       <div className="flex items-center">
                         <input
-                          type="text"
+                          type="email"
                           value={editableUserEmail}
                           onChange={(e) => setEditableUserEmail(e.target.value)}
                           className="w-full p-2 border rounded-lg"
