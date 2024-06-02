@@ -1,17 +1,22 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { FaTrash, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
+
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
+
 import { useSelector, useDispatch } from "react-redux";
 import { setCredentials } from "../../redux/features/auth/authSlice";
+
 import {
   useDeleteUserMutation,
   useGetUsersQuery,
   useUpdateUserMutation,
 } from "../../redux/api/userApiSlice";
+
 import { toast } from "react-toastify";
 import AdminMenu from "./AdminMenu";
+
 export default function UserList() {
   const { userInfo } = useSelector((state) => state.auth);
   const { data: users, refetch, error, isLoading } = useGetUsersQuery();
@@ -43,7 +48,9 @@ export default function UserList() {
     setEditableUserName(name);
     setEditableUserEmail(email);
   };
+
   const dispatch = useDispatch();
+
   const updateHandler = async (userId) => {
     try {
       const result = await updateUser({

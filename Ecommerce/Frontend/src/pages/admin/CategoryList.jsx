@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import CategoryForm from "../../components/CategoryForm";
 import Modal from "../../components/Modal";
-import AdminMenu from "../../components/AdminMenu";
+import AdminMenu from "../admin/AdminMenu";
 ``;
 
 import {
@@ -19,12 +19,11 @@ export default function CategoryList() {
   const [name, setName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [updatingName, setUpdatingName] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [createCategory] = useCreateCategoryMutation();
   const [updateCategory] = useUpdateCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
-
+  const [modalVisible, setModalVisible] = useState(false);
   const handleCreateCategory = async (e) => {
     e.preventDefault();
     if (!name) {
@@ -53,18 +52,19 @@ export default function CategoryList() {
     }
     try {
       const result = await updateCategory({
-        updatedCategory: { name: updatingName },
         categoryId: selectedCategory._id,
+        updatedCategory: { name: updatingName },
       }).unwrap();
       if (result.error) {
         toast.error(result.error);
       } else {
         toast.success(`${result.name} is updated.`);
+        setSelectedCategory(null);
+        setUpdatingName("");
         setModalVisible(false);
       }
     } catch (error) {
       console.error(error);
-      toast.error("Failed to update category");
     }
   };
 
@@ -75,6 +75,7 @@ export default function CategoryList() {
         toast.error(result.error);
       } else {
         toast.success(`${result.name} is deleted.`);
+        setSelectedCategory(null);
         setModalVisible(false);
       }
     } catch (error) {
