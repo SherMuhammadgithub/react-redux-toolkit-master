@@ -180,3 +180,15 @@ const fetchNewProducts = asynHandler(async (req, res) => {
     res.status(500).json(error.message);
   }
 });
+
+export {
+  addProduct,
+  updateProductDetails,
+  removeProduct,
+  fetchProducts,
+  fetchProductById,
+  fetchAllProducts,
+  addProductReview,
+  fetchTopRatedProducts,
+  fetchNewProducts,
+};
