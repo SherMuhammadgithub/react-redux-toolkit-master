@@ -161,4 +161,22 @@ const addProductReview = asynHandler(async (req, res) => {
   }
 });
 
-const 
+const fetchTopRatedProducts = asynHandler(async (req, res) => {
+  try {
+    const products = await Product.find({}).sort({ rating: -1 }).limit(4);
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error.message);
+  }
+});
+
+const fetchNewProducts = asynHandler(async (req, res) => {
+  try {
+    const products = await Product.find({}).sort({ _id: -1 }).limit(4);
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error.message);
+  }
+});
