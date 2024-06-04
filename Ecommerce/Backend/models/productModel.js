@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { objectId } = mongoose.Schema;
+const { ObjectId } = mongoose.Schema;
 
 const reviweSchema = mongoose.Schema(
   {
@@ -7,7 +7,7 @@ const reviweSchema = mongoose.Schema(
     rating: { type: Number, required: true },
     comment: { type: String, required: true },
     user: {
-      type: objectId,
+      type: ObjectId,
       required: true,
       ref: "User",
     },
@@ -21,7 +21,7 @@ const productSchema = mongoose.Schema(
     image: { type: String, required: true },
     brand: { type: String, required: true },
     qunatiy: { type: Number, required: true, default: 0 },
-    category: { type: objectId, ref: "Category", required: true },
+    category: { type: ObjectId, ref: "Category", required: true },
     description: { type: String, required: true },
     reviews: [reviweSchema],
     rating: { type: Number, required: true, default: 0 },
@@ -31,3 +31,5 @@ const productSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+const Product = mongoose.model("Product", productSchema);
+export default Product;
