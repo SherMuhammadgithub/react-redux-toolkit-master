@@ -20,7 +20,7 @@ const addProduct = asynHandler(async (req, res) => {
         return res.status(400).json({ message: "Brand is required" });
     }
 
-    const product = new Product({ ...res.fields });
+    const product = new Product({ ...req.fields });
     await product.save();
     res.status(201).json(product);
   } catch (error) {
