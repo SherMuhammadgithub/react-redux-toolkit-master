@@ -1,17 +1,23 @@
-export const addToFavoritesToLocalStorage = (product) => {
+// Add a product to a localStorage
+export const addFavoriteToLocalStorage = (product) => {
   const favorites = getFavoritesFromLocalStorage();
-  if (!favorites.some((favorite) => favorite._id === product._id)) {
+  if (!favorites.some((p) => p && p._id === product._id)) {
     favorites.push(product);
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }
 };
-export const removeFromFavoritesFromLocalStorage = (product) => {
+
+// Remove  product from a localStorage
+export const removeFavoriteFromLocalStorage = (productId) => {
   const favorites = getFavoritesFromLocalStorage();
-  const updatedFavorites = favorites.filter(
-    (favourite) => favourite._id !== product._id
+  const updateFavorites = favorites.filter(
+    (product) => product && product._id !== productId
   );
-  localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+
+  localStorage.setItem("favorites", JSON.stringify(updateFavorites));
 };
+
+// Retrive favorites from a localStorage
 export const getFavoritesFromLocalStorage = () => {
   const favoritesJSON = localStorage.getItem("favorites");
   return favoritesJSON ? JSON.parse(favoritesJSON) : [];

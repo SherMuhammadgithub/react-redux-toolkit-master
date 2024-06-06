@@ -10,28 +10,30 @@ import {
 } from "../../redux/features/favourites/favouriteSlice";
 
 import {
-  addToFavoritesToLocalStorage,
-  removeFromFavoritesFromLocalStorage,
+  addFavoriteToLocalStorage,
+  removeFavoriteFromLocalStorage,
   getFavoritesFromLocalStorage,
 } from "../../Utils/localStorage";
 
-export default function HeartIcon({ ptoduct }) {
+export default function HeartIcon({ product }) {
   const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.favorites); // get the favourites from the store
-  const isFavorite = favorites.some((favorite) => favorite._id === ptoduct._id);
+  const favorites = useSelector((state) => state.favorites) || []; // get the favourites from the store
+  const isFavorite = favorites.some((p) => p && p._id === product._id);
 
   useEffect(() => {
     const favoritesFromLocalStorage = getFavoritesFromLocalStorage();
     dispatch(setFavorites(favoritesFromLocalStorage));
-  }, [favorites]);
+    console.log(product);
+  }, []);
 
   const toggleFavorites = () => {
+    console.log(product);
     if (isFavorite) {
-      dispatch(removeFromFavorites(ptoduct));
-      removeFromFavoritesFromLocalStorage(ptoduct);
+      dispatch(removeFromFavorites(product));
+      removeFavoriteFromLocalStorage(product._id);
     } else {
-      dispatch(addToFavorites(ptoduct));
-      addToFavoritesToLocalStorage(ptoduct);
+      dispatch(addToFavorites(product));
+      addFavoriteToLocalStorage(product);
     }
   };
   return (

@@ -1,5 +1,6 @@
 import React from "react";
 import HeartIcon from "./HeartIcon";
+import { Link } from "react-router-dom";
 
 export default function SmallProduct({ product }) {
   return (
