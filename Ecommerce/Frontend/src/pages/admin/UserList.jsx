@@ -6,7 +6,6 @@ import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setCredentials } from "../../redux/features/auth/authSlice";
 
 import {
   useDeleteUserMutation,
@@ -49,8 +48,6 @@ export default function UserList() {
     setEditableUserEmail(email);
   };
 
-  const dispatch = useDispatch();
-
   const updateHandler = async (userId) => {
     try {
       const result = await updateUser({
@@ -58,7 +55,6 @@ export default function UserList() {
         username: editableUserName,
         email: editableUserEmail,
       }).unwrap();
-      dispatch(setCredentials({ ...result }));
       toast.success("User updated successfully");
       setEditableUserId("");
       refetch();

@@ -1,4 +1,3 @@
-import { query } from "express";
 import { PRODUCT_URL, UPLOAD_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
@@ -20,7 +19,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
         ],
       }),
     }),
-    allProduucts: builder.query({
+    allProducts: builder.query({
       query: () => ({
         url: `${PRODUCT_URL}/allproducts`,
       }),
@@ -86,7 +85,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
-  useAllProduuctsQuery,
+  useAllProductsQuery,
   useGetProductDetailsQuery,
   useCreateProductMutation,
   useUpdateProductMutation,
