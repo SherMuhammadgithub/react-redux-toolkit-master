@@ -6,6 +6,7 @@ import {
   AiOutlineUserAdd,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
+import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./Navigation.css";
@@ -13,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/features/auth/authSlice";
 import { useLogoutMutation } from "../../redux/api/userApiSlice";
 import "./Navigation.css";
+import FavoritesCount from "../products/FavoritesCount";
 
 export default function Navigation() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -67,6 +69,15 @@ export default function Navigation() {
           <div className="flex items-center transition-transform transform hover:translate-x-2">
             <AiOutlineShoppingCart className="mt-[3rem] mr-2" size={26} />
             <span className="hidden nav-item-name mt-[3rem]">Cart</span>{" "}
+          </div>
+        </Link>
+        <Link to="/favorite" className="flex relative">
+          <div className="flex justify-center items-center transition-transform transform hover:translate-x-2">
+            <FaHeart className="mt-[3rem] mr-2" size={20} />
+            <span className="hidden nav-item-name mt-[3rem]">
+              Favorites
+            </span>{" "}
+            <FavoritesCount />
           </div>
         </Link>
       </div>
