@@ -12,6 +12,7 @@ import {
   fetchProductById,
   fetchProducts,
   fetchTopRatedProducts,
+  filterProducts,
   removeProduct,
   updateProductDetails,
 } from "../controllers/productControler.js";
@@ -33,4 +34,5 @@ router
   .put(authenticate, authorizeAdmin, formidable(), updateProductDetails)
   .delete(authenticate, authorizeAdmin, removeProduct);
 
+router.route("/filtered-products").post(filterProducts);
 export default router;

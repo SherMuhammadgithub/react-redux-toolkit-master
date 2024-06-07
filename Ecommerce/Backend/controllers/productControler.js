@@ -185,6 +185,24 @@ const fetchNewProducts = asynHandler(async (req, res) => {
   }
 });
 
+const filterProducts = asynHandler(async (req, res) => {
+  try {
+    const { checked, radio } = req.body;
+    const args = {};
+    if (checked.length > 0) {
+      args.category = checked;
+    }
+    if (radio.length) {
+      args.price = { $gte: radio[0], $lte: radio[1] }; // $gte: greater than or equal to, $lte: less than or equal to
+    }
+    const products = await Product.find(args);
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error.message);
+  }
+});
+
 export {
   addProduct,
   updateProductDetails,
@@ -195,4 +213,5 @@ export {
   addProductReview,
   fetchTopRatedProducts,
   fetchNewProducts,
+  filterProducts,
 };
