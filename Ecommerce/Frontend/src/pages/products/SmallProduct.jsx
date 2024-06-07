@@ -25,7 +25,7 @@ export default function SmallProduct({ product }) {
         </Link>
       </div>
       {/* <button className="flex justify-center itemce'
-       w-full">Add to cart</button> */} // in future
+       w-full">Add to cart</button> */}
     </div>
   );
 }

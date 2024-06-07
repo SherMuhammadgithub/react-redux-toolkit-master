@@ -18,7 +18,8 @@ import FavoritesCount from "../products/FavoritesCount";
 
 export default function Navigation() {
   const { userInfo } = useSelector((state) => state.auth);
-
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
 
@@ -70,7 +71,18 @@ export default function Navigation() {
             <AiOutlineShoppingCart className="mt-[3rem] mr-2" size={26} />
             <span className="hidden nav-item-name mt-[3rem]">Cart</span>{" "}
           </div>
+
+          <div className="absolute top-9">
+            {cartItems.length > 0 && (
+              <span>
+                <span className="px-1 py-0 text-sm text-white bg-pink-500 rounded-full">
+                  {cartItems.reduce((a, c) => a + c.qty, 0)}
+                </span>
+              </span>
+            )}
+          </div>
         </Link>
+
         <Link to="/favorite" className="flex relative">
           <div className="flex justify-center items-center transition-transform transform hover:translate-x-2">
             <FaHeart className="mt-[3rem] mr-2" size={20} />
