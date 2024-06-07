@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetFilteredProductsQuery } from "../redux/api/productApiSlice";
 import { useFetchCategoriesQuery } from "../redux/api/categoryApiSlice";
 import Loader from "../components/Loader";
-import ProductCard from "./Products/ProductCard";
+import ProductCard from "./products/ProductCard";
 import {
   setCategories,
   setProducts,
@@ -33,7 +33,11 @@ export default function Shop() {
 
   useEffect(() => {
     if (!checked.length || !radio.length) {
-      if (!filteredProductsQuery.isLoading && filteredProductsQuery.data) {
+      if (
+        filteredProductsQuery &&
+        !filteredProductsQuery.isLoading &&
+        filteredProductsQuery.data
+      ) {
         const filteredProducts = filteredProductsQuery.data.filter(
           (product) => {
             return (
@@ -47,15 +51,17 @@ export default function Shop() {
     }
   }, [checked, radio, filteredProductsQuery.data, dispatch, priceFilter]);
 
-  const uniqueBrands = [
-    ...Array.from(
-      new Set(
-        filteredProductsQuery.data
-          .map((p) => p.brand)
-          .filter((brand) => brand !== undefined)
-      )
-    ),
-  ];
+  const uniqueBrands = filteredProductsQuery?.data
+    ? [
+        ...Array.from(
+          new Set(
+            filteredProductsQuery.data
+              .map((p) => p && p.brand)
+              .filter((brand) => brand !== undefined)
+          )
+        ),
+      ]
+    : [];
 
   const handleBrandClick = (brand) => {
     const productsByBrand = filteredProductsQuery.data.filter(
@@ -79,7 +85,7 @@ export default function Shop() {
     <>
       <div className="container mx-auto">
         <div className="flex md:flex-row">
-          <div className="bg-[#151515] p-3 mt-2 mb-2">
+          <div className="bg-[#151515] p-3 mt-2 mb-2 text-white">
             <h2 className="h4 text-center py-2 bg-black rounded-full mb-2">
               Filter by Categories
             </h2>
