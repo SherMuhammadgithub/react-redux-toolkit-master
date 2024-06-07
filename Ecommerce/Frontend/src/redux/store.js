@@ -5,6 +5,7 @@ import authReducer from "./features/auth/authSlice";
 import favoritesReducer from "./features/favourites/favouriteSlice";
 import { getFavoritesFromLocalStorage } from "../Utils/localStorage";
 import cartSliceReducer from "./features/cart/cartSlice";
+import shopReducer from "./features/shop/shopSlice";
 
 const initialFavorites = getFavoritesFromLocalStorage() || [];
 const store = configureStore({
@@ -13,6 +14,7 @@ const store = configureStore({
     auth: authReducer,
     favorites: favoritesReducer,
     cart: cartSliceReducer,
+    shop: shopReducer,
   },
   /* The `preloadedState` field in the `configureStore` function is used to provide the initial state for
 the Redux store. In this specific code snippet, it is setting the initial state for the `favorites`
